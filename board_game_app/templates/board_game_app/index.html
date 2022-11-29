@@ -1,0 +1,12 @@
+{% extends "board_game_app/base.html" %}
+
+{% block page_header %}
+    <div class="jumbotron">
+        <h1 class="display-3">This is the place where all of your board games are!</h1>
+        <p class="lead"> Keep track of your and your friends' board games and go nuts!</p>
+        
+        <a class="btn btn-lg btn-primary" href="{% url 'users_app:register' %}"
+        role="button">Register &raquo;</a>
+
+    </div>
+{% endblock page_header %}
