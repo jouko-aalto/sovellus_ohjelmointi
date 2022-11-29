@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #MEIDÄN APLIKAATIOT JEEE <3    
-    "boardgame_app",
+    "board_game_app",
     "bootstrap4",
     "users_app",
 
