@@ -27,12 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-MY_APPS = [
-    "boardgame_app",
-    "bootstrap4",
-    "users_app",
-]
-
 
 # Application definition
 
