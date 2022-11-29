@@ -7,9 +7,9 @@ class Boardgame(models.Model): #creating the class
     #createing the variable with specific value types
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)     
-    designer = models.CharField()
-    artist = models.CharField()
-    publisher = models.CharField()
+    designer = models.CharField(max_length=200)
+    artist = models.CharField(max_length=200)
+    publisher = models.CharField(max_length=200)
     year_published = models.IntegerField()                               
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
