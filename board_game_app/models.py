@@ -9,7 +9,8 @@ class Boardgame(models.Model): #creating the class
     name = models.CharField(max_length=200)     
     designer = models.CharField()
     artist = models.CharField()
-    publisher = models.CharField()                               
+    publisher = models.CharField()
+    year_published = models.IntegerField()                               
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
