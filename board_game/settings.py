@@ -27,12 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-MY_APPS = [
-    "boardgame_app",
-    "bootstrap4",
-    "users_app",
-]
-
 
 # Application definition
 
@@ -43,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #MEIDÄN APLIKAATIOT JEEE <3    
+    "boardgame_app",
+    "bootstrap4",
+    "users_app",
+
 ]
 
 MIDDLEWARE = [
