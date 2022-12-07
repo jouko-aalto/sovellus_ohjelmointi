@@ -2,5 +2,5 @@
 
 {% block page_header %}
     <h3>{{board_game}}</h3>
+    <a href="{% url "board_game_app:edit_board_game" board_game.id %}"> Edit Board game</a>
 {% endblock page_header %}
-

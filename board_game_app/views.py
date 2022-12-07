@@ -45,3 +45,21 @@ def new_board_game(request):
             return redirect("board_game_app:board_games")
     context = {"form": form}
     return render(request, "board_game_app/new_board_game.html", context)
+
+@login_required
+def edit_board_game(request, board_game_id):
+    board_game = Boardgame.objects.get(id=board_game_id)
+
+    if board_game.owner != request.user:
+        raise Http404
+
+    if request.method != "POST":
+        form = BoardgameForm(instance=board_game)
+    else:
+        form = BoardgameForm(instance=board_game, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("board_game_app:board_game", board_game_id=board_game.id)
+
+    context = {"board_game":board_game, "form":form}
+    return render(request, "board_game_app/edit_board_game.html", context)
