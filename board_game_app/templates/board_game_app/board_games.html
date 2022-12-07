@@ -8,7 +8,10 @@
     <ul>
         {% for board_game in board_games %}
         <li><h3>
-            <a href="{%  url "board_game_app:board_game" board_game.id %}"> {{ board_game }}</a>   
+            <div>
+                <a href="{%  url "board_game_app:board_game" board_game.id %}"> {{ board_game }} </a>
+                <p> Borrowed by: {{ board_game.owner }}</p>
+            </div>
         </h3></li>
         {% empty %}
         <li><h3>No boardgames have been added yet</h3></li>

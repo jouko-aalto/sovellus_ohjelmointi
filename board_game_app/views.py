@@ -17,7 +17,7 @@ def index(request):
 @login_required
 def board_games(request):
     #shows all games
-    board_games = Boardgame.objects.filter(owner=request.user).order_by("date_added")
+    board_games = Boardgame.objects.order_by("date_added")
     context = {"board_games" : board_games}
     return render(request, "board_game_app/board_games.html", context)
 
@@ -25,9 +25,6 @@ def board_games(request):
 def board_game(request, board_game_id):
     #shows a games
     board_game = Boardgame.objects.get(id=board_game_id)
-    #make sure the topic belongs to the user
-    if board_game.owner != request.user:
-        raise Http404
     context = {"board_game" : board_game}
     return render(request, "board_game_app/board_game.html", context)
     
