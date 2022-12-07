@@ -8,7 +8,7 @@
     <ul>
         {% for boardgame in boardgames %}
         <li><h3>
-            <a href="{%  url "board_game_app:boardgame" boardgame.id %}"> {{ boardgame }}</a>
+            <a href="{%  url "board_game_app:boardgame" boardgame.id %}"> {{ board_games }}</a>
            
         </h3></li>
         {% empty %}
