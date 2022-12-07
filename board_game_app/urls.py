@@ -13,4 +13,6 @@ urlpatterns = [
     path('new_board_game/', views.new_board_game, name='new_board_game'),
     #Edit
     path("edit_board_game/<int:board_game_id>/", views.edit_board_game, name="edit_board_game"),
+    #Borrow
+    path("borrow_board_game/<int:board_game_id>/", views.borrow_board_game, name="borrow_board_game"),
 ]

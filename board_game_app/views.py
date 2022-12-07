@@ -60,3 +60,10 @@ def edit_board_game(request, board_game_id):
 
     context = {"board_game":board_game, "form":form}
     return render(request, "board_game_app/edit_board_game.html", context)
+
+@login_required
+def borrow_board_game(request, board_game_id):
+    board_game = Boardgame.objects.get(id=board_game_id)
+    board_game.owner = request.user
+    board_game.save()
+    return redirect("board_game_app:board_games")
