@@ -6,10 +6,9 @@
 
 {% block content %}
     <ul>
-        {% for boardgame in boardgames %}
+        {% for board_game in board_games %}
         <li><h3>
-            <a href="{%  url "board_game_app:boardgame" boardgame.id %}"> {{ board_games }}</a>
-           
+            <a href="{%  url "board_game_app:board_game" board_game.id %}"> {{ board_game }}</a>   
         </h3></li>
         {% empty %}
         <li><h3>No boardgames have been added yet</h3></li>
