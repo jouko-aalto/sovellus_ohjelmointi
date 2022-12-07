@@ -25,9 +25,9 @@ def board_games(request):
 def board_game(request, board_game_id):
     #shows a games
     board_game = Boardgame.objects.get(id=board_game_id)
-    """#make sure the topic belongs to the user
+    #make sure the topic belongs to the user
     if board_game.owner != request.user:
-        raise Http404"""
+        raise Http404
     context = {"board_game" : board_game}
     return render(request, "board_game_app/board_game.html", context)
     
