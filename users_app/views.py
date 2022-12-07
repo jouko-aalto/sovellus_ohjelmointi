@@ -18,7 +18,7 @@ def register(request):
             new_user = form.save()
 
             login(request, new_user)
-            return redirect("book_app:index")
+            return redirect("board_game_app:index")
     
     context = {"form" : form}
     return render(request, "registration/register.html", context)
