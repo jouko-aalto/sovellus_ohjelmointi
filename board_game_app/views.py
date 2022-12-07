@@ -18,14 +18,18 @@ def index(request):
 def board_games(request):
     #shows all games
     board_games = Boardgame.objects.order_by("date_added")
-    context = {"board_games" : board_games}
+    user = request.user
+    borrowed = len(Boardgame.objects.filter(owner=request.user).order_by("date_added"))
+    context = {"board_games" : board_games, "user" : user, "borrowed" : borrowed}
     return render(request, "board_game_app/board_games.html", context)
 
 @login_required
 def board_game(request, board_game_id):
+    user = request.user
+    borrowed = len(Boardgame.objects.filter(owner=request.user).order_by("date_added"))
     #shows a games
     board_game = Boardgame.objects.get(id=board_game_id)
-    context = {"board_game" : board_game}
+    context = {"board_game" : board_game, "board_games" : board_games, "user" : user, "borrowed" : borrowed}
     return render(request, "board_game_app/board_game.html", context)
     
 @login_required

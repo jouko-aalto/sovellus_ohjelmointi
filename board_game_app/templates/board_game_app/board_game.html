@@ -3,8 +3,14 @@
 {% block page_header %}
     <h3>{{board_game}}</h3>
     <a href="{% url "board_game_app:edit_board_game" board_game.id %}"> Edit Board game</a>
+    {% if borrowed < 3 %}
     <a href="{% url "board_game_app:borrow_board_game" board_game.id %}"> Borrow Board game</a>
-    {% if board_game.owner != None %}
+    {% else %}
+    <p>You already have {{ borrowed }} board games borrowed</p>
+    {% endif %}
+    {% if board_game.owner != None or user == board_game.owner %}
     <a href="{% url "board_game_app:return_board_game" board_game.id %}"> Reuturn Board game</a>
     {% endif %}
+    
+    
 {% endblock page_header %}
