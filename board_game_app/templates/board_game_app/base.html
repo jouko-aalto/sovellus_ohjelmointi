@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=decive-width", initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=decive-width, initial-scale=1, shrink-to-fit=no">
         <title>Board Game Madness</title>
 
         {% bootstrap_css %}
@@ -18,12 +18,12 @@
                 <span class="navbar-toggler-icon"> </span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr.auto">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "board_game_app:board_games" %}">Board games</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav mr.auto">
+                <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <span class="navbar-text">Moikku, {{ user.username }}.</span>
