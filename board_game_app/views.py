@@ -63,7 +63,18 @@ def edit_board_game(request, board_game_id):
 
 @login_required
 def borrow_board_game(request, board_game_id):
-    board_game = Boardgame.objects.get(id=board_game_id)
+    board_games = Boardgame.objects.filter(owner=request.user)
+    if len(board_games) > 2:
+        return redirect("board_game_app:index")
+    board_game = Boardgame.objects.get(id=board_game_id) 
     board_game.owner = request.user
     board_game.save()
     return redirect("board_game_app:board_games")
+
+@login_required
+def return_board_game(request, board_game_id):
+    board_game = Boardgame.objects.get(id=board_game_id)
+    board_game.owner = None
+    board_game.save()
+
+    return redirect("board_game_app:board_games")  

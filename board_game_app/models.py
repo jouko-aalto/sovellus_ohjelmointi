@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Boardgame(models.Model): #creating the class
     #createing the variable with specific value types
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=200)     
     designer = models.CharField(max_length=200)
     artist = models.CharField(max_length=200)
