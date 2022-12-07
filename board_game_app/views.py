@@ -18,7 +18,7 @@ def index(request):
 def board_games(request):
     #shows all games
     board_games = Boardgame.objects.filter(owner=request.user).order_by("date_added")
-    context = {"boardgames" : board_games}
+    context = {"board_games" : board_games}
     return render(request, "board_game_app/board_games.html", context)
 
 @login_required

@@ -6,7 +6,7 @@ urlpatterns = [
     #Home page
     path('', views.index, name='index'),
     #Page that shows all board games
-    path("boardgames/", views.board_games, name="board_games"),
+    path("board_games/", views.board_games, name="board_games"),
     #Individual board game page
     path("board_game/<int:board_game_id>/", views.board_game, name="board_game"),
     #Page for adding new board games 
