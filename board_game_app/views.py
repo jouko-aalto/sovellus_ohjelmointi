@@ -47,7 +47,7 @@ def new_board_game(request):
             new_board_game = form.save(commit=False)
             new_board_game.owner = request.user
             new_board_game.save()
-            return redirect("board_game_app:board_games")
+            return redirect("board_game_app:board_games", toggle=0)
     context = {"form": form}
     return render(request, "board_game_app/new_board_game.html", context)
 
@@ -85,7 +85,7 @@ def return_board_game(request, board_game_id):
     board_game.owner = None
     board_game.save()
 
-    return redirect("board_game_app:board_games")  
+    return redirect("board_game_app:board_game", board_game_id=board_game.id) 
 
 @login_required
 def new_review(request, board_game_id):
@@ -96,11 +96,10 @@ def new_review(request, board_game_id):
         form = ReviewForm(data=request.POST)
         if form.is_valid():
             new_review = form.save(commit=False)
-            new_review.board_game = board_game
+            new_review.reviewed_book = board_game
             new_review.owner = request.user
             new_review.save()
-            return redirect("board_game_app:board_game", board_game_id=id)
-
+            return redirect("board_game_app:board_game", board_game_id=board_game_id)
     context = {"board_game" : board_game, "form": form}
     return render (request, "board_game_app/new_review.html", context)
 

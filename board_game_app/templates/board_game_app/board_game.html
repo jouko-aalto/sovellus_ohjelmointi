@@ -2,13 +2,17 @@
 
 {% block page_header %}
     <h3>{{board_game}}</h3>
+    {% if user == board_game.owner %}
     <a href="{% url "board_game_app:edit_board_game" board_game.id %}"> Edit Board game</a>
-    {% if borrowed < 3 %}
-    <a href="{% url "board_game_app:borrow_board_game" board_game.id %}"> Borrow Board game</a>
-    {% else %}
-    <p>You already have the max ammount of game borrowed</p>
     {% endif %}
-    {% if board_game.owner != None or user == board_game.owner %}
+    {% if user != board_game.owner %}
+        {% if borrowed < 3 %}
+        <a href="{% url "board_game_app:borrow_board_game" board_game.id %}"> Borrow Board game</a>
+        {% else %}
+        <p>You can't borrow more than 3 games at ones.</p>
+        {% endif %}
+    {% endif %}
+    {% if user == board_game.owner %}
     <a href="{% url "board_game_app:return_board_game" board_game.id %}"> Reuturn Board game</a>
     {% endif %}
 
