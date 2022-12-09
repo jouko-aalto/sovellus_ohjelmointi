@@ -5,11 +5,11 @@
     <p><a href="{% url "board_game_app:board_game" board_game.id %}">{{ board_game }} </a></p>
 
     <p>Add a new review</p>
-    <p><a href="{% url "board_game_app:new_review" board_game.id %}" method="post"
+
+    <form action="{% url "board_game_app:board_game" board_game.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="submit">Add review</button>
-
-    </form
+    </form>
 
 {% endblock content %}

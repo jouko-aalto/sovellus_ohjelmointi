@@ -30,9 +30,10 @@ def board_games(request, toggle):
 def board_game(request, board_game_id):
     user = request.user
     borrowed = len(Boardgame.objects.filter(owner=request.user).order_by("date_added"))
+    reviews = Review.objects.filter(reviewed_book = board_game_id).order_by("-date_added")
     #shows a games
     board_game = Boardgame.objects.get(id=board_game_id)
-    context = {"board_game" : board_game, "board_games" : board_games, "user" : user, "borrowed" : borrowed}
+    context = {"board_game" : board_game, "board_games" : board_games, "user" : user, "borrowed" : borrowed, "reviews" : reviews}
     return render(request, "board_game_app/board_game.html", context)
     
 @login_required
@@ -84,19 +85,11 @@ def return_board_game(request, board_game_id):
     board_game.owner = None
     board_game.save()
 
-<<<<<<< HEAD
     return redirect("board_game_app:board_games")  
 
-##REVIEWS##
-####def reviews(request):
-    reviews = Review.objects.filter(reviewed_board_game_id = 1)
-    context = {"review": reviews}
-    return render(request, "board_game_app/review.html", context)####
-####
 @login_required
 def new_review(request, board_game_id):
-    board_game = board_game_app.objects.get(id=board_game_id)
-
+    board_game = Boardgame.objects.get(id=board_game_id)
     if request.method != "POST":
         form = ReviewForm()
     else:
@@ -104,6 +97,7 @@ def new_review(request, board_game_id):
         if form.is_valid():
             new_review = form.save(commit=False)
             new_review.board_game = board_game
+            new_review.owner = request.user
             new_review.save()
             return redirect("board_game_app:board_game", board_game_id=id)
 
@@ -112,6 +106,7 @@ def new_review(request, board_game_id):
 
 @login_required
 def edit_review(request, review_id):
+    #<small><a href="{% url "board_game_app:edit_review" review.id %}"> Edit review</a></small>
     review = Review.objects.get(id=review_id)
     board_game = review.reviewed_board_game
     if board_game.owner != request.user:
@@ -120,7 +115,7 @@ def edit_review(request, review_id):
     if request.method != "POST":
         form = ReviewForm(instance=review)
     else:
-        form = ReviewForm(data=request.POST)
+        form = ReviewForm(instance=review, data=request.POST)
         if form.is_valid():
             form.save()
         return redirect("board_game_app:board_game", board_game_id = board_game.id)
@@ -130,6 +125,3 @@ def edit_review(request, review_id):
 
 
 
-=======
-    return redirect("board_game_app:board_game", board_game_id=board_game.id)  
->>>>>>> 937bf31ec6716a7838d39eeb7c0e7c2cf8ba3bcf

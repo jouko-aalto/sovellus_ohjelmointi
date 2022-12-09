@@ -11,6 +11,24 @@
     {% if board_game.owner != None or user == board_game.owner %}
     <a href="{% url "board_game_app:return_board_game" board_game.id %}"> Reuturn Board game</a>
     {% endif %}
-    
-    
+
 {% endblock page_header %}
+
+{% block content %}
+    <p>
+        <a href="{% url "board_game_app:new_review" board_game.id %}"> Add a new review</a>
+    </p>
+    {% for review in reviews %}
+        <div class="card mbn-3">
+            <h4 class="card-header">
+                {{ review.date_added|date:"M d, Y H:i:s" }}
+            </h4>
+            <div class="card-body">
+                {{ review.my_review|linebreaks }}
+            </div>
+        </div>
+           
+    {% empty %}
+        <p>There are no reviews for this book yet</p>
+    {% endfor %}
+{% endblock content %}
