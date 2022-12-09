@@ -17,4 +17,10 @@ urlpatterns = [
     path("borrow_board_game/<int:board_game_id>/", views.borrow_board_game, name="borrow_board_game"),
     #Return
     path("return_board_game/<int:board_game_id>/", views.return_board_game, name="return_board_game"),
+    #Review
+    path("review/", views.reviews, name="reviews"),
+    #New reviews
+    path("new_review/<int:board_game_id>/", views.new_review, name="new_review"),
+    #Adding review
+    path("edit_review/<int:review_id/", views.edit_review, name="edit_review"),
 ]

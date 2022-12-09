@@ -4,8 +4,8 @@ from django.shortcuts import render
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Boardgame
-from .forms import BoardgameForm
+from .models import Boardgame, Review
+from .forms import BoardgameForm, ReviewForm
 from django.http import Http404
 
 # Create your views here.
@@ -82,3 +82,47 @@ def return_board_game(request, board_game_id):
     board_game.save()
 
     return redirect("board_game_app:board_games")  
+
+##REVIEWS##
+####def reviews(request):
+    reviews = Review.objects.filter(reviewed_board_game_id = 1)
+    context = {"review": reviews}
+    return render(request, "board_game_app/review.html", context)####
+####
+@login_required
+def new_review(request, board_game_id):
+    board_game = board_game_app.objects.get(id=board_game_id)
+
+    if request.method != "POST":
+        form = ReviewForm()
+    else:
+        form = ReviewForm(data=request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.board_game = board_game
+            new_review.save()
+            return redirect("board_game_app:board_game", board_game_id=id)
+
+    context = {"board_game" : board_game, "form": form}
+    return render (request, "board_game_app/new_review.html", context)
+
+@login_required
+def edit_review(request, review_id):
+    review = Review.objects.get(id=review_id)
+    board_game = review.reviewed_board_game
+    if board_game.owner != request.user:
+        raise Http404
+    
+    if request.method != "POST":
+        form = ReviewForm(instance=review)
+    else:
+        form = ReviewForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect("board_game_app:board_game", board_game_id = board_game.id)
+    context = {"review": review, "board_game":board_game, "form":form}
+    return render(request, "board_game_app/edit_review.html", context)
+
+
+
+
