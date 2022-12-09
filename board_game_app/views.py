@@ -15,12 +15,15 @@ def index(request):
     return render(request, "board_game_app/index.html")
 
 @login_required
-def board_games(request):
-    #shows all games
-    board_games = Boardgame.objects.order_by("date_added")
-    user = request.user
-    borrowed = len(Boardgame.objects.filter(owner=request.user).order_by("date_added"))
-    context = {"board_games" : board_games, "user" : user, "borrowed" : borrowed}
+def board_games(request, toggle):
+    toggle = toggle
+    #shows all games 
+    if toggle == 0:
+        board_games = Boardgame.objects.order_by("date_added")
+    elif toggle == 1:
+        board_games = Boardgame.objects.filter(owner=None).order_by("date_added")
+
+    context = {"board_games" : board_games, "toggle" : toggle }
     return render(request, "board_game_app/board_games.html", context)
 
 @login_required
@@ -73,7 +76,7 @@ def borrow_board_game(request, board_game_id):
     board_game = Boardgame.objects.get(id=board_game_id) 
     board_game.owner = request.user
     board_game.save()
-    return redirect("board_game_app:board_games")
+    return redirect("board_game_app:board_game", board_game_id=board_game.id)
 
 @login_required
 def return_board_game(request, board_game_id):
@@ -81,4 +84,4 @@ def return_board_game(request, board_game_id):
     board_game.owner = None
     board_game.save()
 
-    return redirect("board_game_app:board_games")  
+    return redirect("board_game_app:board_game", board_game_id=board_game.id)  

@@ -2,6 +2,11 @@
 
 {% block page_header %}
     <h1>Board games</h1>
+    {% if toggle == 0 %}
+    <a href="{% url "board_game_app:board_games"  1 %}">Show available board games</a>
+    {% elif toggle == 1 %}
+    <a href="{% url "board_game_app:board_games"  0 %}">Show all board games</a>
+    {% endif %}
 {% endblock page_header %}
 
 {% block content %}
@@ -10,7 +15,11 @@
         <li><h3>
             <div>
                 <a href="{%  url "board_game_app:board_game" board_game.id %}"> {{ board_game }} </a>
+                {% if board_game.owner == None %}
+                <p> Available </p>
+                {% else %}
                 <p> Borrowed by: {{ board_game.owner }}</p>
+                {% endif %}
             </div>
         </h3></li>
         {% empty %}
