@@ -1,76 +1,34 @@
 {% load static %}
 
-<html>
-<head>
-    <title>Avaible board games</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-
-<body>
-    <div class="banner">
-        <div class="navbar">
-            <img src="{% static 'css/logo.png' %}" class="logo">
-            <ul>
-                <li><a href="{% url "board_game_app:index" %}">Home</a></li>
-                <li><a href="{% url "board_game_app:board_games" %}">Loan</a></li>
-                <li><a href="{% url "users_app:login" %}">Log in</a></li>
-                <li><a href="{% url "users_app:logout" %}">Log out</a></li>
-            </ul>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=decive-width, initial-scale=1, shrink-to-fit=no">
+        <title>Board games</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body style="background-color:black;">
+        <div class="banner">
+            <div class="navbar">
+                <img src="{% static 'css/logo.png' %}" class="logo">
+                <ul>
+                    <li><a href="{% url "board_game_app:index" %}">Home</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url "board_game_app:board_games" 0 %}">Board games</a></li>
+                    <li><p style="color:white;">Hello, {{ user.username }}.</p></li>
+                    <li><a href="{% url "users_app:logout" %}">Log out</a></li>
+                    {% else %}
+                    <li><p style="color:white;">Login to view board games.</p></li>
+                    <li><a href="{% url "users_app:login" %}">Log in</a></li>
+                    <li><a href="{% url "users_app:register" %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        
-        
-        <div class="content">
-            <h3>{{board_game}}</h3>
-            <br>
-            <br>
-            <ul>
-                {% if board_game.owner != None and user == board_game.owner %}
-                <li><a href="{% url "board_game_app:edit_board_game" board_game.id %}"> Edit Board game</a></li>
-                {% endif %}
-                {% if borrowed < 3 %}
-                <br>
-                <li><a href="{% url "board_game_app:borrow_board_game" board_game.id %}"> Borrow Board game</a></li>
-                {% else %}
-                <p>You already have the max ammount of game borrowed</p>
-                {% endif %}
-                {% if board_game.owner != None and user == board_game.owner %}
-                <br>
-                <li><a href="{% url "board_game_app:return_board_game" board_game.id %}"> Reuturn Board game</a></li>
-                {% endif %}
-            </ul>
-        </div>
-        <div
-         
-        </div>
-    </div>
-</body>
+        <main role="main" class="container">
+            <div>
+                {% block content %}{% endblock content %}
+            </div>
+        </main>
+    </body>
 </html>
-
-
-<nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
-    <a class="navbar-brand" href="{% url "board_game_app:index" %}">Board Game Madness</a>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle">
-        <span class="navbar-toggler-icon"> </span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "board_game_app:board_games" 0 %}">Board games</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-                <span class="navbar-text">Moikku, {{ user.username }}.</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "users_app:logout" %}">Log out</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "users_app:register" %}">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "users_app:login" %}">Log in</a>
-            </li>

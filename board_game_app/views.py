@@ -28,11 +28,11 @@ def board_games(request, toggle):
 
 @login_required
 def board_game(request, board_game_id):
-    user = request.user
-    borrowed = len(Boardgame.objects.filter(owner=request.user).order_by("date_added"))
-    reviews = Review.objects.filter(reviewed_book = board_game_id).order_by("-date_added")
     #shows a games
     board_game = Boardgame.objects.get(id=board_game_id)
+    user = request.user
+    borrowed = len(Boardgame.objects.filter(owner=request.user).order_by("date_added"))
+    reviews = board_game.review_set.order_by("-date_added")
     context = {"board_game" : board_game, "board_games" : board_games, "user" : user, "borrowed" : borrowed, "reviews" : reviews}
     return render(request, "board_game_app/board_game.html", context)
     
@@ -92,7 +92,7 @@ def new_review(request, board_game_id):
     board_game = Boardgame.objects.get(id=board_game_id)
     if request.method != "POST":
         form = ReviewForm()
-    else:
+    else: 
         form = ReviewForm(data=request.POST)
         if form.is_valid():
             new_review = form.save(commit=False)
@@ -105,11 +105,8 @@ def new_review(request, board_game_id):
 
 @login_required
 def edit_review(request, review_id):
-    #<small><a href="{% url "board_game_app:edit_review" review.id %}"> Edit review</a></small>
     review = Review.objects.get(id=review_id)
-    board_game = review.reviewed_board_game
-    if board_game.owner != request.user:
-        raise Http404
+    board_game = review.reviewed_book
     
     if request.method != "POST":
         form = ReviewForm(instance=review)
@@ -118,9 +115,6 @@ def edit_review(request, review_id):
         if form.is_valid():
             form.save()
         return redirect("board_game_app:board_game", board_game_id = board_game.id)
+
     context = {"review": review, "board_game":board_game, "form":form}
     return render(request, "board_game_app/edit_review.html", context)
-
-
-
-

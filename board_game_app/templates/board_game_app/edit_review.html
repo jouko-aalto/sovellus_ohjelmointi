@@ -1,56 +1,15 @@
-{% load static %}
-
-<html>
-<head>
-    <title>Brainlet board games!</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-
-<body>
-    <div class="banner">
-        <div class="navbar">
-            <img src="{% static 'css/logo.png' %}" class="logo">
-            <ul>
-                <li><a href="{% url "board_game_app:index" %}">Home</a></li>
-                <li><a class="nav-link" href="{% url "board_game_app:board_games" 0 %}">Loan</a></li>
-                <li><a href="{% url "users_app:login" %}">Log in</a></li>
-                <li><a href="{% url "users_app:logout" %}">Log out</a></li>
-                
-            </ul>
-        </div>
-        
-        
-        <div class="content">
-            <p>Add a new review:</p>
-            <p><a href="{% url "board_game_app:board_game" board_game.id %}">{{ board_game }}</a></p>
-        
-            <p>Edit review:</p>
-            <p><a href="{% url "board_game_app:edit_review" review.id %}" method="post"
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button name="submit">Save changes</button>
-            </form
-        
-        </div>
-        <div
-         
-        </div>
-    </div>
-</body>
-</html>
-
 {% extends "board_game_app/base.html" %}
-{% block content %}
 
+{% block content %}
+<div class="content">
     <p>Add a new review:</p>
     <p><a href="{% url "board_game_app:board_game" board_game.id %}">{{ board_game }}</a></p>
 
     <p>Edit review:</p>
-    <p><a href="{% url "board_game_app:edit_review" review.id %}" method="post"
+    <form action="{% url "board_game_app:edit_review" review.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="submit">Save changes</button>
-
-    </form
-
+    </form>
+</div>
 {% endblock content %}

@@ -1,39 +1,15 @@
-{% load static %}
+{% extends "board_game_app/base.html" %}
 
-<html>
-<head>
-    <title>Brainlet board games!</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
+{% block content %}
+<div class="content">
+    <p><a href="{% url "board_game_app:board_game" board_game.id %}">{{ board_game }} </a></p>
 
-<body>
-    <div class="banner">
-        <div class="navbar">
-            <img src="{% static 'css/logo.png' %}" class="logo">
-            <ul>
-                <li><a href="{% url "board_game_app:index" %}">Home</a></li>
-                <li><a class="nav-link" href="{% url "board_game_app:board_games" 0 %}">Loan</a></li>
-                <li><a href="{% url "users_app:login" %}">Log in</a></li>
-                <li><a href="{% url "users_app:logout" %}">Log out</a></li>
-                
-            </ul>
-        </div>
-        
-        
-        <div class="content">
-            <p><a href="{% url "board_game_app:board_game" board_game.id %}">{{ board_game }} </a></p>
-
-            <p>Add a new review</p>
-        
-            <form action="{% url "board_game_app:board_game" board_game.id %}" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button name="submit">Add review</button>
-            </form>
-        </div>
-        <div
-         
-        </div>
-    </div>
-</body>
-</html>
+    <p>Add a new review</p>
+    
+    <form action="{% url "board_game_app:new_review" board_game.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Add review</button>
+    </form>
+</div>
+{% endblock content %}
