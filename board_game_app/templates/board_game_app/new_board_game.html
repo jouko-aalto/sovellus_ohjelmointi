@@ -1,12 +1,37 @@
-{% extends "board_game_app/base.html" %}
+{% load static %}
 
-{% block content %}
-    <p> Add new board game:</p>
+<html>
+<head>
+    <title>Brainlet board games!</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 
-    <form action="{% url 'board_game_app:new_board_game' %}" method='post'>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit"> Add board game</button>
-    </form>
+<body>
+    <div class="banner">
+        <div class="navbar">
+            <img src="{% static 'css/logo.png' %}" class="logo">
+            <ul>
+                <li><a href="{% url "board_game_app:index" %}">Home</a></li>
+                <li><a class="nav-link" href="{% url "board_game_app:board_games" 0 %}">Loan</a></li>
+                <li><a href="{% url "users_app:login" %}">Log in</a></li>
+                <li><a href="{% url "users_app:logout" %}">Log out</a></li>
+                
+            </ul>
+        </div>
+        
+        
+        <div class="content">
+            <p> Add new board game:</p>
 
-{% endblock content %}
+            <form action="{% url 'board_game_app:new_board_game' %}" method='post'>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button name="submit"> Add board game</button>
+            </form>
+        </div>
+        <div
+         
+        </div>
+    </div>
+</body>
+</html>

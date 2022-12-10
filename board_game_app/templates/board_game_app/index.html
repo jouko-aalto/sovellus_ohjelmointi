@@ -1,12 +1,32 @@
-{% extends "board_game_app/base.html" %}
+{% load static %}
 
-{% block page_header %}
-    <div class="jumbotron">
-        <h1 class="display-3">This is the place where all of your board games are!</h1>
-        <p class="lead"> Keep track of your and your friends' board games and go nuts!</p>
+<html>
+<head>
+    <title>Brainlet board games!</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="banner">
+        <div class="navbar">
+            <img src="{% static 'css/logo.png' %}" class="logo">
+            <ul>
+                <li><a href="{% url "board_game_app:index" %}">Home</a></li>
+                <li><a class="nav-link" href="{% url "board_game_app:board_games" 0 %}">Loan</a></li>
+                <li><a href="{% url "users_app:login" %}">Log in</a></li>
+                <li><a href="{% url "users_app:logout" %}">Log out</a></li>
+                
+            </ul>
+        </div>
         
-        <a class="btn btn-lg btn-primary" href="{% url 'users_app:register' %}"
-        role="button">Register &raquo;</a>
-
+        
+        <div class="content">
+            <h1>Welcome to the world of board games</h1>
+            <p>Keep track of your favourite board games</p>
+        </div>
+        <div
+         
+        </div>
     </div>
-{% endblock page_header %}
+</body>
+</html>
