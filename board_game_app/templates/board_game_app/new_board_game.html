@@ -1,0 +1,13 @@
+{% extends "board_game_app/base.html" %}
+
+{% block content %}
+<div class="content">
+    <p> Add new board game:</p>
+
+    <form action="{% url 'board_game_app:new_board_game' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit"> Add board game</button>
+    </form>
+</div>
+{% endblock content %}
