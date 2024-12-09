@@ -1,0 +1,33 @@
+{% extends "board_game_app/base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2>Board games</h2>
+        {% if toggle == 0 %}
+        <a href="{% url "board_game_app:board_games"  1 %}">Show available board games</a>
+        {% elif toggle == 1 %}
+        <a href="{% url "board_game_app:board_games"  0 %}">Show all board games</a>
+        {% endif %}
+    <br>
+    <br>
+    <br>
+    <ul>
+        {% for board_game in board_games %}
+        <li><h3>
+            <div>
+                <a href="{%  url "board_game_app:board_game" board_game.id %}"> {{ board_game }} </a>
+                {% if board_game.owner == None %}
+                <p> Available </p>
+                {% else %}
+                <p> Borrowed by: {{ board_game.owner }}</p>
+                {% endif %}
+            </div>
+        </h3></li>
+        {% empty %}
+        <li><h3>No boardgames have been added yet</h3></li>
+        {% endfor %}
+    </ul>
+    <h3><a href="{% url 'board_game_app:new_board_game' %}">Add a new board game</a></h3>
+           
+</div>
+{% endblock content %}
